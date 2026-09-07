@@ -27,7 +27,7 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
-                    <!-- Logotipo oficial ubicado en la misma carpeta con fallback -->
+                    <!-- Logotipo oficial ubicado en la misma carpeta con respaldo automático -->
                     <img src="Image (24).png" onerror="this.onerror=null; this.src='Image (24).jpg';" alt="El Dorado Logo" class="h-12 w-12 rounded-full object-cover border-2 border-yellow-500 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
                     <div>
                         <span class="font-bold text-2xl tracking-tight text-white block leading-none">El Dorado</span>
@@ -57,7 +57,7 @@
 
     <main class="flex-grow max-w-7xl mx-auto px-4 py-12 w-full">
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- Productos inyectados de inmediato por JS local -->
+            <!-- Productos cargados dinámicamente -->
         </div>
     </main>
 
@@ -338,7 +338,6 @@
             window.open(wpUrl, '_blank');
         }
 
-        // Inicializar de inmediato al cargar la página local
         window.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
