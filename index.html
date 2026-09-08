@@ -11,7 +11,7 @@
         body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
         .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); }
         .hero-bg {
-            background-image: linear-gradient(to bottom, rgba(15,23,42,0.6), #0f172a), url('https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=1920&q=80');
+            background-image: linear-gradient(to bottom, rgba(15,23,42,0.75), #0f172a), url('https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
         }
@@ -47,17 +47,17 @@
     <header class="hero-bg pt-32 pb-20 px-4 text-center">
         <div class="max-w-3xl mx-auto">
             <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 drop-shadow-lg">
-                Frescura directa del mar y la granja
+                Frescura y calidad para tu hogar o negocio
             </h1>
             <p class="text-lg md:text-xl text-gray-300 mb-8 drop-shadow">
-                Especialistas en camarones frescos, pescados y cortes de pollo de la más alta calidad. Haz tu pedido y recíbelo en la puerta de tu casa.
+                Especialistas en venta por kilo de pollo fresco, camarones y pescados en crudo directos del mar y la granja. Pide directo por WhatsApp.
             </p>
         </div>
     </header>
 
     <main class="flex-grow max-w-7xl mx-auto px-4 py-12 w-full">
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- Productos cargados dinámicamente -->
+            <!-- Productos cargados dinámicamente en crudo -->
         </div>
     </main>
 
@@ -113,18 +113,19 @@
     </div>
 
     <script>
+        // Catálogo actualizado estrictamente con productos frescos y en crudo
         const defaultCatalog = [
-            { id: 'p1', name: 'Pierna y muslo', price: 38, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p2', name: 'Pollo surtido', price: 76, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p3', name: 'Milanesa de pollo', price: 150, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p4', name: 'Alitas', price: 70, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p5', name: 'Molleja', price: 65, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p6', name: 'Filete de cazón azul', price: 140, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p7', name: 'Filete de cazón de tripa', price: 160, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p8', name: 'Camarón cocido chico', price: 130, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p9', name: 'Camarón crudo chico', price: 220, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1559742811-822873691df8?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p10', name: 'Medallón de atún', price: 45, unit: 'pieza', image_url: 'https://images.unsplash.com/photo-1501595091296-3aa970afb3ff?auto=format&fit=crop&w=400&q=80' },
-            { id: 'p11', name: 'Ceviche', price: 100, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3?auto=format&fit=crop&w=400&q=80' }
+            { id: 'p1', name: 'Pierna y muslo', price: 38, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p2', name: 'Pollo surtido', price: 76, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p3', name: 'Milanesa de pollo', price: 150, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p4', name: 'Alitas', price: 70, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p5', name: 'Molleja', price: 65, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p6', name: 'Filete de cazón azul', price: 140, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p7', name: 'Filete de cazón de tripa', price: 160, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p8', name: 'Camarón cocido chico', price: 130, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p9', name: 'Camarón crudo chico', price: 220, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1559742811-822873691df8?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p10', name: 'Medallón de atún', price: 45, unit: 'pieza', image_url: 'https://images.unsplash.com/photo-1501595091296-3aa970afb3ff?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p11', name: 'Ceviche', price: 100, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3?auto=format&fit=crop&w=500&q=80' }
         ];
 
         const AppState = {
@@ -134,7 +135,7 @@
         };
 
         function initApp() {
-            const LOCAL_KEY = 'el_dorado_local_db_v10';
+            const LOCAL_KEY = 'el_dorado_local_db_v12';
             const savedData = localStorage.getItem(LOCAL_KEY);
             
             if (savedData) {
@@ -159,7 +160,7 @@
                 card.className = "bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700 hover:border-yellow-500 transition-colors duration-300 flex flex-col";
                 card.innerHTML = `
                     <div class="h-48 overflow-hidden relative">
-                        <img src="${p.image_url}" alt="${p.name}" class="w-full h-full object-cover transform hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/1e293b/94a3b8?text=Foto+No+Disponible'">
+                        <img src="${p.image_url}" alt="${p.name}" class="w-full h-full object-cover transform hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/1e293b/94a3b8?text=Producto+Fresno'">
                         <div class="absolute top-2 right-2 bg-black/80 text-yellow-500 text-sm font-bold px-3 py-1 rounded-full backdrop-blur-sm border border-yellow-500/50">
                             $${Number(p.price).toFixed(2)}
                         </div>
