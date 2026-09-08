@@ -8,17 +8,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); }
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #f8fafc; }
+        .glass { background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(12px); }
         .hero-bg {
-            background-image: linear-gradient(to bottom, rgba(15,23,42,0.75), #0f172a), url('https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=1920&q=80');
+            background-image: linear-gradient(to bottom, rgba(5,5,5,0.85), #050505), url('https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
         }
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1e293b; }
-        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #eab308; }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -27,14 +27,16 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
-                    <!-- Logotipo oficial ubicado en la misma carpeta raíz con respaldo automático -->
-                    <img src="Image (24).png" onerror="this.onerror=null; this.src='Image (24).jpg';" alt="El Dorado Logo" class="h-12 w-12 rounded-full object-cover border-2 border-yellow-500 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+                    <img src="Image (24).png" onerror="this.onerror=null; this.src='Image (24).jpg'; this.onerror=function(){this.src='https://placehold.co/100x100/111/eab308?text=ED';" alt="El Dorado Logo" class="h-12 w-12 rounded-full object-cover border-2 border-yellow-500 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
                     <div>
                         <span class="font-bold text-2xl tracking-tight text-white block leading-none">El Dorado</span>
                         <span class="text-xs text-yellow-500 font-semibold uppercase tracking-wider">Carnes & Mariscos</span>
                     </div>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleGeminiChat()" class="bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 px-3 py-2 rounded-full text-xs font-bold transition flex items-center gap-2">
+                        <i class="fas fa-robot text-sm"></i> <span class="hidden sm:inline">Asesor IA</span>
+                    </button>
                     <button onclick="toggleCart()" class="relative p-2 text-gray-300 hover:text-white transition group">
                         <i class="fas fa-shopping-cart text-2xl group-hover:scale-110 transition transform"></i>
                         <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/4 -translate-y-1/4">0</span>
@@ -47,24 +49,24 @@
     <header class="hero-bg pt-32 pb-20 px-4 text-center">
         <div class="max-w-3xl mx-auto">
             <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 drop-shadow-lg">
-                Frescura y calidad para tu hogar o negocio
+                Frescura directa del mar y la granja
             </h1>
             <p class="text-lg md:text-xl text-gray-300 mb-8 drop-shadow">
-                Especialistas en venta por kilo de pollo fresco, camarones y pescados en crudo directos del mar y la granja. Pide directo por WhatsApp.
+                Especialistas en camarones frescos, pescados y cortes de pollo de la más alta calidad al peso. Pide directo por WhatsApp.
             </p>
         </div>
     </header>
 
     <main class="flex-grow max-w-7xl mx-auto px-4 py-12 w-full">
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- Productos cargados dinámicamente en crudo -->
+            <!-- Productos cargados dinámicamente -->
         </div>
     </main>
 
-    <div id="cart-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleCart()"></div>
-    <div id="cart-sidebar" class="fixed inset-y-0 right-0 z-50 w-full md:w-[450px] bg-gray-900 border-l border-gray-800 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div id="cart-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300" onclick="toggleCart()"></div>
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 z-50 w-full md:w-[450px] bg-gray-950 border-l border-gray-800 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
         <div class="flex items-center justify-between p-5 border-b border-gray-800 bg-gray-900">
-            <h2 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-shopping-basket text-yellow-500"></i> Tu Pedido</h2>
+            <h2 class="text-xl font-bold flex items-center gap-2 text-white"><i class="fas fa-shopping-basket text-yellow-500"></i> Tu Pedido</h2>
             <button onclick="toggleCart()" class="text-gray-400 hover:text-white transition"><i class="fas fa-times text-2xl"></i></button>
         </div>
 
@@ -72,26 +74,26 @@
             <div class="text-center text-gray-500 mt-10">Tu carrito está vacío</div>
         </div>
 
-        <div class="border-t border-gray-800 p-5 bg-gray-800/50 space-y-4">
-            <div class="flex justify-between text-lg font-bold">
+        <div class="border-t border-gray-800 p-5 bg-gray-900/50 space-y-4">
+            <div class="flex justify-between text-lg font-bold text-white">
                 <span>Total Estimado:</span>
                 <span id="cart-total" class="text-yellow-500">$0.00</span>
             </div>
             
-            <button id="btn-continue-checkout" onclick="showCheckoutForm()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-3 px-4 rounded-lg transition shadow-lg shadow-yellow-500/20">
+            <button id="btn-continue-checkout" onclick="showCheckoutForm()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-gray-950 font-bold py-3 px-4 rounded-lg transition shadow-lg shadow-yellow-500/20">
                 Continuar al Pago <i class="fas fa-arrow-right ml-2"></i>
             </button>
 
             <div id="checkout-form" class="hidden flex flex-col gap-3 mt-4">
-                <input type="text" id="customer-name" placeholder="Tu Nombre Completo" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500">
+                <input type="text" id="customer-name" placeholder="Tu Nombre Completo" class="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-500">
                 
-                <select id="delivery-mode" onchange="toggleDeliveryOptions()" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500">
+                <select id="delivery-mode" onchange="toggleDeliveryOptions()" class="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-500">
                     <option value="domicilio">Entrega a Domicilio</option>
                     <option value="mostrador">Recoger en mostrador</option>
                 </select>
 
                 <div id="address-container">
-                    <textarea id="customer-address" placeholder="Dirección completa de entrega" rows="2" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500"></textarea>
+                    <textarea id="customer-address" placeholder="Dirección completa de entrega" rows="2" class="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-500"></textarea>
                 </div>
 
                 <div id="map-container" class="hidden">
@@ -99,7 +101,7 @@
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.267923769974!2d-101.6917411!3d21.1417539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842bc0b7849615a1%3A0xc34ba98d9e2fb725!2sDise%C3%B1adores%20de%20Echeveste%20237%2C%20Hacienda%20Echeveste%2C%2037100%20Le%C3%B3n%2C%20Gto.!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" width="100%" height="150" style="border:0; border-radius: 0.5rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
-                <select id="payment-method" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500">
+                <select id="payment-method" class="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-500">
                     <option value="efectivo">Pago en Efectivo</option>
                     <option value="transferencia">Transferencia (Spin by Oxxo)</option>
                 </select>
@@ -112,11 +114,42 @@
         </div>
     </div>
 
+    <div id="gemini-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl shadow-2xl w-full max-w-lg flex flex-col h-[550px] overflow-hidden">
+            <div class="p-4 bg-gray-950 border-b border-gray-800 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <div class="bg-yellow-500/20 p-2 rounded-lg text-yellow-400">
+                        <i class="fas fa-robot text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-base">Asesor Culinario IA</h3>
+                        <p class="text-xs text-gray-400">Powered by Gemini - Pregunta recetas y cantidades</p>
+                    </div>
+                </div>
+                <button onclick="toggleGeminiChat()" class="text-gray-400 hover:text-white transition"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-sm">
+                <div class="flex gap-2">
+                    <div class="bg-gray-800 text-gray-200 p-3 rounded-2xl rounded-tl-none max-w-[85%]">
+                        ¡Hola! Soy tu asistente de <b>El Dorado</b>. ¿Qué se te antoja cocinar hoy? Dime qué tienes en mente o cuántas personas cenarán y te recomiendo nuestros cortes ideales.
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 bg-gray-950 border-t border-gray-800 flex gap-2">
+                <input type="text" id="chat-input" onkeypress="handleChatKey(event)" placeholder="Ej. ¿Qué receta hago con camarón crudo?" class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2 text-white text-sm focus:outline-none focus:border-yellow-500">
+                <button onclick="sendGeminiMessage()" class="bg-yellow-500 hover:bg-yellow-400 text-gray-950 px-4 py-2 rounded-xl font-bold transition flex items-center justify-center">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Catálogo actualizado estrictamente con productos frescos y en crudo
         const defaultCatalog = [
-            { id: 'p1', name: 'Pierna y muslo', price: 38, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=500&q=80' },
-            { id: 'p2', name: 'Pollo surtido', price: 76, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p1', name: 'Pierna y muslo', price: 38, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p2', name: 'Pollo surtido', price: 76, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=500&q=80' },
             { id: 'p3', name: 'Milanesa de pollo', price: 150, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=500&q=80' },
             { id: 'p4', name: 'Alitas', price: 70, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=500&q=80' },
             { id: 'p5', name: 'Molleja', price: 65, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80' },
@@ -135,7 +168,7 @@
         };
 
         function initApp() {
-            const LOCAL_KEY = 'el_dorado_local_db_v12';
+            const LOCAL_KEY = 'el_dorado_local_db_v13';
             const savedData = localStorage.getItem(LOCAL_KEY);
             
             if (savedData) {
@@ -157,10 +190,10 @@
 
             AppState.products.forEach(p => {
                 const card = document.createElement('div');
-                card.className = "bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700 hover:border-yellow-500 transition-colors duration-300 flex flex-col";
+                card.className = "bg-gray-900 rounded-xl overflow-hidden shadow-lg border border-gray-800 hover:border-yellow-500 transition-colors duration-300 flex flex-col";
                 card.innerHTML = `
                     <div class="h-48 overflow-hidden relative">
-                        <img src="${p.image_url}" alt="${p.name}" class="w-full h-full object-cover transform hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/1e293b/94a3b8?text=Producto+Fresno'">
+                        <img src="${p.image_url}" alt="${p.name}" class="w-full h-full object-cover transform hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/111/eab308?text=Producto+Fresco'">
                         <div class="absolute top-2 right-2 bg-black/80 text-yellow-500 text-sm font-bold px-3 py-1 rounded-full backdrop-blur-sm border border-yellow-500/50">
                             $${Number(p.price).toFixed(2)}
                         </div>
@@ -168,9 +201,9 @@
                     <div class="p-5 flex-grow flex flex-col justify-between">
                         <div>
                             <h3 class="text-xl font-bold text-white mb-1">${p.name}</h3>
-                            <p class="text-gray-400 text-sm mb-4 capitalize">Se vende por: ${p.unit}</p>
+                            <p class="text-gray-400 text-sm mb-4 capitalize">Se Vende Por: ${p.unit}</p>
                         </div>
-                        <button onclick="addToCart('${p.id}')" class="w-full bg-gray-700 hover:bg-yellow-500 hover:text-gray-900 text-white font-semibold py-2 px-4 rounded transition-colors flex items-center justify-center gap-2">
+                        <button onclick="addToCart('${p.id}')" class="w-full bg-gray-800 hover:bg-yellow-500 hover:text-gray-950 text-white font-semibold py-2 px-4 rounded transition-colors flex items-center justify-center gap-2">
                             <i class="fas fa-plus"></i> Agregar
                         </button>
                     </div>
@@ -189,10 +222,6 @@
                 AppState.cart[productId] = { item: product, quantity: 1 };
             }
             updateCartUI();
-            
-            const cartIcon = document.querySelector('.fa-shopping-cart');
-            cartIcon.classList.add('text-yellow-500', 'scale-125');
-            setTimeout(() => cartIcon.classList.remove('text-yellow-500', 'scale-125'), 300);
         }
 
         function updateQuantity(productId, change) {
@@ -229,16 +258,16 @@
                     totalPrice += itemTotal;
 
                     const itemEl = document.createElement('div');
-                    itemEl.className = "flex gap-4 bg-gray-800 p-3 rounded-lg border border-gray-700";
+                    itemEl.className = "flex gap-4 bg-gray-900 p-3 rounded-lg border border-gray-800";
                     itemEl.innerHTML = `
-                        <img src="${cartItem.item.image_url}" class="w-16 h-16 object-cover rounded-md" onerror="this.src='https://placehold.co/100/1e293b/94a3b8'">
+                        <img src="${cartItem.item.image_url}" class="w-16 h-16 object-cover rounded-md" onerror="this.src='https://placehold.co/100/111/eab308'">
                         <div class="flex-1">
                             <h4 class="text-sm font-bold text-white">${cartItem.item.name}</h4>
                             <div class="text-yellow-500 text-sm font-semibold">$${Number(cartItem.item.price).toFixed(2)} / ${cartItem.item.unit}</div>
                             <div class="flex items-center gap-3 mt-2">
-                                <button onclick="updateQuantity('${id}', -1)" class="w-6 h-6 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 text-white"><i class="fas fa-minus text-xs"></i></button>
-                                <span class="text-sm font-bold w-4 text-center">${cartItem.quantity}</span>
-                                <button onclick="updateQuantity('${id}', 1)" class="w-6 h-6 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 text-white"><i class="fas fa-plus text-xs"></i></button>
+                                <button onclick="updateQuantity('${id}', -1)" class="w-6 h-6 bg-gray-800 rounded flex items-center justify-center hover:bg-gray-700 text-white"><i class="fas fa-minus text-xs"></i></button>
+                                <span class="text-sm font-bold w-4 text-center text-white">${cartItem.quantity}</span>
+                                <button onclick="updateQuantity('${id}', 1)" class="w-6 h-6 bg-gray-800 rounded flex items-center justify-center hover:bg-gray-700 text-white"><i class="fas fa-plus text-xs"></i></button>
                             </div>
                         </div>
                         <div class="font-bold text-white flex items-end">
@@ -337,6 +366,119 @@
 
             const wpUrl = `https://api.whatsapp.com/send?phone=${AppState.WHATSAPP_NUMBER}&text=${encodeURIComponent(msg)}`;
             window.open(wpUrl, '_blank');
+        }
+
+        // --- GEMINI API INTEGRATION ---
+        function toggleGeminiChat() {
+            const modal = document.getElementById('gemini-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function handleChatKey(e) {
+            if (e.key === 'Enter') {
+                sendGeminiMessage();
+            }
+        }
+
+        async function sendGeminiMessage() {
+            const inputEl = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const prompt = inputEl.value.trim();
+            if (!prompt) return;
+
+            // Append User Message
+            chatMessages.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="bg-yellow-500 text-gray-950 font-medium p-3 rounded-2xl rounded-tr-none max-w-[85%]">
+                        ${escapeHtml(prompt)}
+                    </div>
+                </div>
+            `;
+            inputEl.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Append Loading Indicator
+            const loadingId = 'loading-' + Date.now();
+            chatMessages.innerHTML += `
+                <div id="${loadingId}" class="flex gap-2">
+                    <div class="bg-gray-800 text-gray-400 p-3 rounded-2xl rounded-tl-none text-xs italic">
+                        Consultando recetas y disponibilidad...
+                    </div>
+                </div>
+            `;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const systemPrompt = `Eres el asesor culinario oficial de "El Dorado", una tienda de carnes y mariscos frescos en León, Gto. 
+                Los productos que vendemos en crudo son: Pollo surtido ($76/kg), Pierna y muslo ($38/kg), Milanesa de pollo ($150/kg), Alitas ($70/kg), Molleja ($65/kg), Filete de cazón azul ($140/kg), Filete de cazón de tripa ($160/kg), Camarón cocido chico ($130/kg), Camarón crudo chico ($220/kg), Medallón de atún ($45/pieza) y Ceviche ($100/kg). 
+                Recomienda recetas prácticas, calcula porciones para eventos y sé muy amable, conciso y servicial.`;
+
+                const catalogContext = JSON.stringify(AppState.products);
+                const fullUserQuery = `Inventario actual de la tienda: ${catalogContext}. Pregunta del cliente: ${prompt}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: fullUserQuery }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] }
+                };
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=`;
+                
+                // Exponential backoff retry logic
+                let response = null;
+                let delay = 1000;
+                for (let attempt = 0; attempt < 3; attempt++) {
+                    try {
+                        response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (response.ok) break;
+                    } catch (err) {}
+                    await new Promise(r => setTimeout(r, delay));
+                    delay *= 2;
+                }
+
+                document.getElementById(loadingId).remove();
+
+                if (response && response.ok) {
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const replyText = candidate.content.parts[0].text;
+                        chatMessages.innerHTML += `
+                            <div class="flex gap-2">
+                                <div class="bg-gray-800 text-gray-200 p-3 rounded-2xl rounded-tl-none max-w-[85%] leading-relaxed">
+                                    ${formatAIResponse(replyText)}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error("Invalid structure");
+                    }
+                } else {
+                    throw new Error("Network error");
+                }
+            } catch (err) {
+                const loader = document.getElementById(loadingId);
+                if (loader) loader.remove();
+                chatMessages.innerHTML += `
+                    <div class="flex gap-2">
+                        <div class="bg-red-950/50 text-red-300 p-3 rounded-2xl rounded-tl-none max-w-[85%] text-xs">
+                            Lo siento, ocurrió un pequeño problema de conexión al consultar al asesor. ¡Inténtalo de nuevo!
+                        </div>
+                    </div>
+                `;
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function formatAIResponse(text) {
+            return escapeHtml(text).replace(/\n/g, '<br>');
         }
 
         window.addEventListener('DOMContentLoaded', initApp);
