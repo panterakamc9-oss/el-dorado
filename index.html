@@ -148,11 +148,11 @@
 
     <script>
         const defaultCatalog = [
-            { id: 'p1', name: 'Pierna y muslo', price: 38, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=500&q=80' },
-            { id: 'p2', name: 'Pollo surtido', price: 76, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p1', name: 'Pierna y muslo', price: 38, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p2', name: 'Pollo surtido', price: 76, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=500&q=80' },
             { id: 'p3', name: 'Milanesa de pollo', price: 150, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=500&q=80' },
             { id: 'p4', name: 'Alitas', price: 70, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=500&q=80' },
-            { id: 'p5', name: 'Molleja', price: 65, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80' },
+            { id: 'p5', name: 'Molleja', price: 65, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?auto=format&fit=crop&w=500&q=80' },
             { id: 'p6', name: 'Filete de cazón azul', price: 140, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=500&q=80' },
             { id: 'p7', name: 'Filete de cazón de tripa', price: 160, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=500&q=80' },
             { id: 'p8', name: 'Camarón cocido chico', price: 130, unit: 'kg', image_url: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=500&q=80' },
@@ -386,6 +386,9 @@
             const prompt = inputEl.value.trim();
             if (!prompt) return;
 
+            // TU API KEY CONFIGURADA PARA GITHUB PAGES
+            const apiKey = "AQ.Ab8RN6Iu2gqMtJ_bXd6se9CFlFeNsgcv0afUZZd8zHax97K4aQ"; 
+
             // Append User Message
             chatMessages.innerHTML += `
                 <div class="flex justify-end">
@@ -421,9 +424,8 @@
                     systemInstruction: { parts: [{ text: systemPrompt }] }
                 };
 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=`;
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
                 
-                // Exponential backoff retry logic
                 let response = null;
                 let delay = 1000;
                 for (let attempt = 0; attempt < 3; attempt++) {
