@@ -176,12 +176,12 @@
             { id: 11, name: "Ceviche", price: 100, unit: "kg", image: "ceviche.jpg" }
         ];
 
-        let products = JSON.parse(localStorage.getItem('el_dorado_products_v22')) || defaultProducts;
+        let products = JSON.parse(localStorage.getItem('el_dorado_products_v23')) || defaultProducts;
         let cart = JSON.parse(localStorage.getItem('el_dorado_cart')) || [];
         let geminiHistory = [];
 
         function saveProducts() {
-            localStorage.setItem('el_dorado_products_v22', JSON.stringify(products));
+            localStorage.setItem('el_dorado_products_v23', JSON.stringify(products));
         }
 
         function saveCart() {
@@ -425,31 +425,32 @@
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     reply = data.candidates[0].content.parts[0].text;
                 } else if (data.error) {
+                    console.error("Error de Gemini API (La clave fue rechazada):", data.error.message);
                     throw new Error(data.error.message);
                 } else {
                     throw new Error("Respuesta vacía");
                 }
             } catch (err) {
-                // RESPALDO CONTEXTUAL COHERENTE EN CASO DE FALLO DE RED/API
+                console.warn("Fallo de API, usando el asistente de respaldo mejorado.");
                 const userMsgLower = text.toLowerCase();
                 const historyBlob = geminiHistory.map(h => h.parts[0].text.toLowerCase()).join(' ');
 
-                if (userMsgLower.includes('domicilio')) {
+                if (userMsgLower.includes('domicilio') || userMsgLower.includes('envio')) {
                     reply = "¡Sí! Contamos con servicio a domicilio. Puedes hacer tu pedido desde el carrito de compras y elegir 'Entrega a domicilio'. ¿Te ayudo a armar tu pedido?";
                 } else if (userMsgLower.includes('5') && (historyBlob.includes('alitas') || historyBlob.includes('boneless'))) {
                     reply = "¡Excelente! Tomando en cuenta los **5 kg de alitas** ($70/kg) para tus boneless, el total a pagar es de **$350.00 MXN**. ¿Te lo anoto para agregarlo al carrito?";
-                } else if (userMsgLower.match(/\d+/)) {
+                } else if (userMsgLower.match(/\d+/) && (userMsgLower.includes('kg') || userMsgLower.includes('kilo'))) {
                     const matchNum = userMsgLower.match(/\d+/);
-                    const qty = matchNum ? matchNum[0] : 1;
-                    if (historyBlob.includes('camarón') || historyBlob.includes('camaron')) {
-                        reply = `Perfecto, con **${qty} kg de camarón**, el total se calcula directamente en mostrador según tu selección de crudo o cocido. ¿Deseas agregarlo?`;
-                    } else {
-                        reply = `Muy bien, tomamos nota de los **${qty} kg**. ¿Gustas que te preparemos tu pedido para envío a domicilio o pasarás a recogerlo a mostrador?`;
-                    }
+                    const qty = matchNum ? parseInt(matchNum[0]) : 1;
+                    reply = `Perfecto, anotamos los **${qty} kg**. Todo nuestro producto es fresco y del día. ¿Te gustaría agregar algo más o pasamos a confirmar tu carrito?`;
                 } else if (historyBlob.includes('boneless') || historyBlob.includes('alitas')) {
                     reply = "¿Cuántos kilos de alitas frescas ($70/kg) te gustaría apartar para tus boneless?";
+                } else if (userMsgLower.includes('camarón') || userMsgLower.includes('camaron')) {
+                    reply = "El camarón crudo chico está en $220/kg y el cocido en $130/kg. Son ideales para un ceviche o aguachile. ¿Cuántos kilos te enviamos?";
+                } else if (userMsgLower.includes('hola') || userMsgLower.includes('buenas')) {
+                    reply = "¡Hola nuevamente! Dime, ¿qué receta tienes en mente hoy para poder recomendarte la mejor carne o marisco?";
                 } else {
-                    reply = "¡Claro que sí! Con gusto te ayudo a armar tu pedido con nuestros cortes frescos de El Dorado. ¿Qué más se te ofrece?";
+                    reply = "Entiendo. Recuerda que puedes ver todos nuestros precios actualizados aquí en la tienda. ¿Hay algún corte o marisco en específico que estés buscando?";
                 }
             }
 
