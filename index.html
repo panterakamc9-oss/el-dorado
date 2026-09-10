@@ -161,26 +161,27 @@
 
     <!-- Script Principal de Lógica -->
     <script>
+        // Catálogo base exacto referenciando imágenes de GitHub
         const defaultProducts = [
-            { id: 1, name: "Pierna y muslo", price: 38, unit: "kg", image: "https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&q=80&w=600" },
-            { id: 2, name: "Pollo surtido", price: 76, unit: "kg", image: "https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&q=80&w=600" },
-            { id: 3, name: "Milanesa de pollo", price: 150, unit: "kg", image: "https://images.unsplash.com/photo-1607305387299-a3d9611cd469?auto=format&fit=crop&q=80&w=600" },
-            { id: 4, name: "Alitas", price: 70, unit: "kg", image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&q=80&w=600" },
-            { id: 5, name: "Molleja", price: 65, unit: "kg", image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600" },
-            { id: 6, name: "Filete de cazón azul", price: 140, unit: "kg", image: "https://images.unsplash.com/photo-1534482492323-831386779427?auto=format&fit=crop&q=80&w=600" },
-            { id: 7, name: "Filete de cazón de tripa", price: 160, unit: "kg", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=600" },
-            { id: 8, name: "Camarón cocido chico", price: 130, unit: "kg", image: "https://images.unsplash.com/photo-1565680314424-b2586d62d22f?auto=format&fit=crop&q=80&w=600" },
-            { id: 9, name: "Camarón crudo chico", price: 220, unit: "kg", image: "https://images.unsplash.com/photo-1559742811-822873691df8?auto=format&fit=crop&q=80&w=600" },
-            { id: 10, name: "Medallón de atún", price: 45, unit: "pieza", image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600" },
-            { id: 11, name: "Ceviche", price: 100, unit: "kg", image: "https://images.unsplash.com/photo-1535400255456-984241433d26?auto=format&fit=crop&q=80&w=600" }
+            { id: 1, name: "Pierna y muslo", price: 38, unit: "kg", image: "pierna y muslo.jpg" },
+            { id: 2, name: "Pollo surtido", price: 76, unit: "kg", image: "pollo surtido.jpg" },
+            { id: 3, name: "Milanesa de pollo", price: 150, unit: "kg", image: "milanesa de pollo.jpg" },
+            { id: 4, name: "Alitas", price: 70, unit: "kg", image: "alitas.jpg" },
+            { id: 5, name: "Molleja", price: 65, unit: "kg", image: "molleja.jpg" },
+            { id: 6, name: "Filete de cazón azul", price: 140, unit: "kg", image: "filete de cazon azul.jpg" },
+            { id: 7, name: "Filete de cazón de tripa", price: 160, unit: "kg", image: "filete de cazon de tripa.jpg" },
+            { id: 8, name: "Camarón cocido chico", price: 130, unit: "kg", image: "camaron cocido chico.png" },
+            { id: 9, name: "Camarón crudo chico", price: 220, unit: "kg", image: "camaron crudo chico.jpg" },
+            { id: 10, name: "Medallón de atún", price: 45, unit: "pieza", image: "medallon de atun.png" },
+            { id: 11, name: "Ceviche", price: 100, unit: "kg", image: "ceviche.jpg" }
         ];
 
-        let products = JSON.parse(localStorage.getItem('el_dorado_products_v16')) || defaultProducts;
+        let products = JSON.parse(localStorage.getItem('el_dorado_products_v20')) || defaultProducts;
         let cart = JSON.parse(localStorage.getItem('el_dorado_cart')) || [];
         let geminiHistory = [];
 
         function saveProducts() {
-            localStorage.setItem('el_dorado_products_v16', JSON.stringify(products));
+            localStorage.setItem('el_dorado_products_v20', JSON.stringify(products));
         }
 
         function saveCart() {
@@ -195,6 +196,7 @@
                 grid.innerHTML += `
                     <div class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden flex flex-col shadow-lg hover:border-amber-500/50 transition">
                         <div class="h-48 overflow-hidden relative">
+                            <!-- Si la imagen falla (ej en pruebas), se usa una de reemplazo de Unsplash -->
                             <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600'">
                             <span class="absolute top-3 right-3 bg-black/80 backdrop-blur-md text-amber-400 font-bold px-3 py-1 rounded-full text-sm border border-amber-500/30">
                                 $${p.price.toFixed(2)}
@@ -359,8 +361,8 @@
             window.open(url, '_blank');
         }
 
-        // Asesor IA con Gemini e Historial Continuo Ilimitado
-        const apiKey = "AQ.Ab8RN6Iu2gqMtJ_bXd6se9CFlFeNsgcv0afUZZd8zHax97K4aQ";
+        // API KEY actualizada
+        const apiKey = "AQ.Ab8RN6LJmsLsnRnP4eIsi5pbAJlv1pL6i7vY64pmSwj36Jf9YA"; 
 
         function toggleAIChat() {
             const modal = document.getElementById('ai-chat-modal');
@@ -420,38 +422,54 @@
                 clearTimeout(timeoutId);
 
                 const data = await response.json();
+                
+                // VALIDACIÓN PARA DETECTAR SI LA API KEY ES RECHAZADA
+                if (!response.ok) {
+                    throw new Error(data.error?.message || "Error en la validación de la API Key");
+                }
+
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     reply = data.candidates[0].content.parts[0].text;
                 } else {
                     throw new Error("Respuesta vacía");
                 }
             } catch (err) {
-                // RESPALDO CONTEXTUAL COHERENTE EN CASO DE INTERMITENCIA DE RED
-                const userMsgLower = text.toLowerCase();
-                const historyBlob = geminiHistory.map(h => h.parts[0].text.toLowerCase()).join(' ');
-
-                if (userMsgLower.includes('5') && (historyBlob.includes('alitas') || historyBlob.includes('boneless'))) {
-                    reply = "¡Excelente! Tomando en cuenta los **5 kg de alitas** ($70/kg) para tus boneless, el total a pagar es de **$350.00 MXN**. ¿Te lo anoto para agregarlo al carrito?";
-                } else if (userMsgLower.match(/\d+/)) {
-                    const matchNum = userMsgLower.match(/\d+/);
-                    const qty = matchNum ? matchNum[0] : 1;
-                    if (historyBlob.includes('camarón') || historyBlob.includes('camaron')) {
-                        reply = `Perfecto, con **${qty} kg de camarón**, el total se calcula directamente en mostrador según tu selección de crudo o cocido. ¿Deseas agregarlo?`;
-                    } else {
-                        reply = `Muy bien, tomamos nota de los **${qty} kg**. ¿Gustas que te preparemos tu pedido para envío a domicilio o pasarás a recogerlo a mostrador?`;
-                    }
-                } else if (historyBlob.includes('boneless') || historyBlob.includes('alitas')) {
-                    reply = "¿Cuántos kilos de alitas frescas ($70/kg) te gustaría apartar para tus boneless?";
+                console.error("Fallo en IA:", err);
+                
+                // SI LA CLAVE ES INVÁLIDA, SE LO DECIMOS AL USUARIO EN EL CHAT
+                if (err.message.includes("API_KEY") || !apiKey.startsWith("AIza")) {
+                    reply = "⚠️ **Aviso del Sistema:** La API Key configurada (`" + apiKey.substring(0,6) + "...`) no es válida en Google AI Studio (las claves gratuitas empiezan con 'AIzaSy...'). Por favor, genera una nueva clave válida en aistudio.google.com y actualízala en el código para activar mi inteligencia ilimitada.";
+                    geminiHistory.pop(); // Borramos el error del historial
                 } else {
-                    reply = "¡Claro que sí! Con gusto te ayudo a armar tu pedido con nuestros cortes frescos de El Dorado. ¿Qué más se te ofrece?";
+                    // RESPALDO CONTEXTUAL COHERENTE EN CASO DE INTERMITENCIA DE RED
+                    const userMsgLower = text.toLowerCase();
+                    const historyBlob = geminiHistory.map(h => h.parts[0].text.toLowerCase()).join(' ');
+
+                    if (userMsgLower.includes('5') && (historyBlob.includes('alitas') || historyBlob.includes('boneless'))) {
+                        reply = "¡Excelente! Tomando en cuenta los **5 kg de alitas** ($70/kg) para tus boneless, el total a pagar es de **$350.00 MXN**. ¿Te lo anoto para agregarlo al carrito?";
+                    } else if (userMsgLower.match(/\d+/)) {
+                        const matchNum = userMsgLower.match(/\d+/);
+                        const qty = matchNum ? matchNum[0] : 1;
+                        if (historyBlob.includes('camarón') || historyBlob.includes('camaron')) {
+                            reply = `Perfecto, con **${qty} kg de camarón**, el total se calcula directamente en mostrador según tu selección de crudo o cocido. ¿Deseas agregarlo?`;
+                        } else {
+                            reply = `Muy bien, tomamos nota de los **${qty} kg**. ¿Gustas que te preparemos tu pedido para envío a domicilio o pasarás a recogerlo a mostrador?`;
+                        }
+                    } else if (historyBlob.includes('boneless') || historyBlob.includes('alitas')) {
+                        reply = "¿Cuántos kilos de alitas frescas ($70/kg) te gustaría apartar para tus boneless?";
+                    } else {
+                        reply = "¡Claro que sí! Con gusto te ayudo a armar tu pedido con nuestros cortes frescos de El Dorado. ¿Qué más se te ofrece?";
+                    }
                 }
             }
 
-            // 2. Guardar la respuesta del modelo en el historial nativo para mantener la coherencia en mensajes futuros
-            geminiHistory.push({
-                role: "model",
-                parts: [{ text: reply }]
-            });
+            // 2. Guardar la respuesta del modelo en el historial nativo
+            if (!reply.includes('⚠️')) {
+                geminiHistory.push({
+                    role: "model",
+                    parts: [{ text: reply }]
+                });
+            }
 
             document.getElementById(loadingId).remove();
             container.innerHTML += `
